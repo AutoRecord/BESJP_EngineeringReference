@@ -107,7 +107,7 @@ Top=600
 Field="Floor","階","integer","NOT NULL",0,"","",$FFFFFFFF
 Field="Name","室名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
 Field="BuildingType","建物用途","varchar(50)",,,"","",$FFFFFFFF
-Field="RoomType","室用途","varchar(50)",,,"\"非主要室\"","常に「非主要室」",$FFFFFFFF
+Field="RoomType","室用途","varchar(50)",,,"\q非主要室\q","常に「非主要室」",$FFFFFFFF
 Field="Area","室面積","numeric(10,2)",,,"","m²",$FFFFFFFF
 Index=MinorRoom_PK=1,Floor,Name
 EffectMode=None
@@ -224,7 +224,7 @@ Index=EnvelopeSet_PK=1,ACZoneFloor,ACZoneName
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-Position="外皮・外皮・窓",100,900
+Position="外皮・外壁・窓",100,900
 
 [Entity]
 PName=Envelope
