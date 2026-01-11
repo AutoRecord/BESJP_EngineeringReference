@@ -1,0 +1,1247 @@
+# A5:ER FORMAT:06
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  Webpro入力項目スキーマ E-R図
+
+[Manager]
+ProjectName=Webpro入力項目スキーマ
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=基本情報・室仕様
+PageInfo="基本情報・室仕様",2
+PageInfo="空調システム",2
+PageInfo="換気システム",2
+PageInfo="照明・給湯",2
+PageInfo="昇降機・発電",2
+PageInfo="コージェネ",2
+PageInfo="外皮・外壁・窓",2
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A3Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+ShowTag=1
+
+[Entity]
+PName=Model
+LName=基本情報
+Comment=様式0. 基本情報入力シート
+TableOption=
+Page=基本情報・室仕様
+Left=100
+Top=100
+Field="SheetCreateDate","シート作成月日","date",,0,"","",$FFFFFFFF
+Field="PersonInCharge","入力責任者","varchar(100)",,,"","",$FFFFFFFF
+Field="Name","建物の名称","varchar(200)","NOT NULL",,"","主キー",$FFFFFFFF
+Field="Address1","都道府県","varchar(50)",,,"","",$FFFFFFFF
+Field="Address2","市区町村","varchar(100)",,,"","",$FFFFFFFF
+Field="Address3","詳細住所","text",,,"","",$FFFFFFFF
+Field="Region","省エネ基準地域区分","varchar(10)",,,"","",$FFFFFFFF
+Field="Structure","構造","varchar(50)",,,"","",$FFFFFFFF
+Field="GroundFloor","地上階数","integer",,,"","",$FFFFFFFF
+Field="BasementFloor","地下階数","integer",,,"","",$FFFFFFFF
+Field="SiteArea","敷地面積","numeric(10,2)",,,"","m²",$FFFFFFFF
+Field="BuildingArea","建築面積","numeric(10,2)",,,"","m²",$FFFFFFFF
+Field="TotalArea","延べ面積","numeric(10,2)",,,"","m²",$FFFFFFFF
+Field="AnnualSolarLevel","年間日射地域区分","varchar(10)",,,"","",$FFFFFFFF
+Field="DHCReducedValueCooling","DHC冷熱一次換算値","numeric(10,2)",,,"","kWh",$FFFFFFFF
+Field="DHCReducedValueHeating","DHC温熱一次換算値","numeric(10,2)",,,"","kWh",$FFFFFFFF
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="基本情報・室仕様",100,100
+
+[Entity]
+PName=Room
+LName=室仕様
+Comment=様式1. 室仕様入力シート
+TableOption=
+Page=基本情報・室仕様
+Left=100
+Top=600
+Field="Floor","階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="Name","室名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="BuildingType","建物用途","varchar(50)",,,"","enum: Office, Hotel, Hospital, Store, School, Restaurant, MeetingPlace, Factory, ApartmentHouse, Common",$FFFFFFFF
+Field="RoomType","室用途","varchar(50)",,,"","enum: OfficeRoom, ComputerRoom, MeetingRoom等 約200値",$FFFFFFFF
+Field="RoomArea","室面積","numeric(10,2)",,,"","m²",$FFFFFFFF
+Field="FloorHeight","階高","numeric(5,2)",,,"","m",$FFFFFFFF
+Field="RoomHeight","天井高","numeric(5,2)",,,"","m",$FFFFFFFF
+Field="AirConditioning","空調計算対象室","boolean",,,"false","",$FFFFFFFF
+Field="Ventilation","換気計算対象室","boolean",,,"false","",$FFFFFFFF
+Field="Lighting","照明計算対象室","boolean",,,"false","",$FFFFFFFF
+Field="Hotwater","給湯計算対象室","boolean",,,"false","",$FFFFFFFF
+Field="NonAC","非空調室フラグ","boolean",,,"true","",$FFFFFFFF
+Field="ModelBuilding","モデル建物","varchar(100)",,,"","",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=Room_PK=1,Floor,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="基本情報・室仕様",100,600
+
+[Entity]
+PName=MinorRoom
+LName=非主要室
+Comment=主要室入力法による非主要室
+TableOption=
+Page=基本情報・室仕様
+Left=500
+Top=600
+Field="Floor","階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="Name","室名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="BuildingType","建物用途","varchar(50)",,,"","",$FFFFFFFF
+Field="RoomType","室用途","varchar(50)",,,"\"非主要室\"","常に「非主要室」",$FFFFFFFF
+Field="Area","室面積","numeric(10,2)",,,"","m²",$FFFFFFFF
+Index=MinorRoom_PK=1,Floor,Name
+EffectMode=None
+Color=$000000
+BkColor=$CCCCCC
+Position="基本情報・室仕様",500,600
+
+[Entity]
+PName=AirConditioningZone
+LName=空調ゾーン
+Comment=様式2-1. 空調ゾーン入力シート
+TableOption=
+Page=空調システム
+Left=100
+Top=100
+Field="Floor","階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="Name","空調ゾーン名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Field="NonAC","非空調フラグ","boolean",,,"false","",$FFFFFFFF
+Index=AirConditioningZone_PK=1,Floor,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="空調システム",100,100
+
+[Entity]
+PName=RoomRef
+LName=室参照
+Comment=空調ゾーンと室の関連
+TableOption=
+Page=空調システム
+Left=500
+Top=100
+Field="ACZoneFloor","空調ゾーン階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="ACZoneName","空調ゾーン名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="RoomFloor","室階","integer","NOT NULL",2,"","",$FFFFFFFF
+Field="RoomName","室名","varchar(100)","NOT NULL",3,"","",$FFFFFFFF
+Index=RoomRef_PK=1,ACZoneFloor,ACZoneName,RoomFloor,RoomName
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="空調システム",500,100
+
+[Entity]
+PName=WallConfigure
+LName=外壁構成
+Comment=様式2-2. 外壁構成入力シート
+TableOption=
+Page=外皮・外壁・窓
+Left=100
+Top=100
+Field="Name","外壁名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="Type","壁の種類","varchar(20)",,,"","enum: Air(外壁), Ground(接地壁)",$FFFFFFFF
+Field="Uvalue","熱貫流率","numeric(6,3)",,,"","W/m²K",$FFFFFFFF
+Index=WallConfigure_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="外皮・外壁・窓",100,100
+
+[Entity]
+PName=Material
+LName=建材層
+Comment=外壁構成の建材層（最大9層）
+TableOption=
+Page=外皮・外壁・窓
+Left=500
+Top=100
+Field="WallName","外壁名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="Layer","層序番","integer","NOT NULL",1,"","",$FFFFFFFF
+Field="Number","建材番号","varchar(50)",,,"","",$FFFFFFFF
+Field="Name","建材名称","varchar(100)",,,"","",$FFFFFFFF
+Field="Thickness","厚み","numeric(6,4)",,,"0.0","m",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=Material_PK=1,WallName,Layer
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="外皮・外壁・窓",500,100
+
+[Entity]
+PName=WindowConfigure
+LName=窓仕様
+Comment=様式2-3. 窓仕様入力シート
+TableOption=
+Page=外皮・外壁・窓
+Left=100
+Top=500
+Field="Name","開口部名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="Uvalue","窓の熱貫流率","numeric(6,3)",,,"","W/m²K",$FFFFFFFF
+Field="EtaValue","窓の日射熱取得率","numeric(4,3)",,,"","0-1",$FFFFFFFF
+Field="Joinery","建具の種類","varchar(50)",,,"","enum: Resin, Wooden, ResinCompound, WoodCompound, Aluminium (各single/multi-pane)",$FFFFFFFF
+Field="GlassType","ガラスの種類","varchar(100)",,,"","",$FFFFFFFF
+Field="GlassUvalue","ガラス熱貫流率","numeric(6,3)",,,"","W/m²K",$FFFFFFFF
+Field="GlassEtaValue","ガラス日射熱取得率","numeric(4,3)",,,"","0-1",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=WindowConfigure_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="外皮・外壁・窓",100,500
+
+[Entity]
+PName=EnvelopeSet
+LName=外皮仕様セット
+Comment=様式2-4. 外皮仕様入力シート（空調ゾーン単位）
+TableOption=
+Page=外皮・外壁・窓
+Left=100
+Top=900
+Field="ACZoneFloor","階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="ACZoneName","空調ゾーン名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Index=EnvelopeSet_PK=1,ACZoneFloor,ACZoneName
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="外皮・外皮・窓",100,900
+
+[Entity]
+PName=Envelope
+LName=外皮
+Comment=方位ごとの外皮仕様
+TableOption=
+Page=外皮・外壁・窓
+Left=500
+Top=900
+Field="ACZoneFloor","階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="ACZoneName","空調ゾーン名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="Direction","方位","varchar(20)","NOT NULL",2,"","enum: N, NE, E, SE, S, SW, W, NW, Horizontal, Shade",$FFFFFFFF
+Field="WallConfiguration","外壁名称","varchar(100)",,,"","FK: WallConfigure.Name",$FFFFFFFF
+Field="Area","外皮面積","numeric(10,2)",,,"","m²(窓含む)",$FFFFFFFF
+Index=Envelope_PK=1,ACZoneFloor,ACZoneName,Direction
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="外皮・外壁・窓",500,900
+
+[Entity]
+PName=Window
+LName=開口部
+Comment=外皮の開口部（窓）
+TableOption=
+Page=外皮・外壁・窓
+Left=900
+Top=900
+Field="ACZoneFloor","階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="ACZoneName","空調ゾーン名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="Direction","方位","varchar(20)","NOT NULL",2,"","",$FFFFFFFF
+Field="WindowID","窓ID","integer","NOT NULL",3,"","",$FFFFFFFF
+Field="CoolingEaves","冷房時日よけ効果係数","numeric(4,2)",,,"","",$FFFFFFFF
+Field="HeatingEaves","暖房時日よけ効果係数","numeric(4,2)",,,"","",$FFFFFFFF
+Field="WindowSpecification","開口部名称","varchar(100)",,,"","FK: WindowConfigure.Name",$FFFFFFFF
+Field="Area","窓面積","numeric(10,2)",,,"","m²",$FFFFFFFF
+Field="Blind","ブラインドの有無","boolean",,,"false","",$FFFFFFFF
+Index=Window_PK=1,ACZoneFloor,ACZoneName,Direction,WindowID
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="外皮・外壁・窓",900,900
+
+[Entity]
+PName=HeatSourceSet
+LName=熱源群
+Comment=様式2-5. 熱源入力シート（熱源群）
+TableOption=
+Page=空調システム
+Left=100
+Top=500
+Field="Name","熱源群名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="Simultaneous","冷暖同時供給有無","boolean",,,"false","",$FFFFFFFF
+Field="QuantityControl","台数制御","boolean",,,"false","",$FFFFFFFF
+Field="StorageMode","運転モード","varchar(50)",,,"","enum: None, CompressorAided, IceStorage, WaterStorageStratified, WaterStorageMixed",$FFFFFFFF
+Field="StorageSize","蓄熱容量","numeric(10,2)",,,"","kWh",$FFFFFFFF
+Index=HeatSourceSet_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="空調システム",100,500
+
+[Entity]
+PName=HeatSource
+LName=熱源機器
+Comment=様式2-5. 熱源入力シート（機器）
+TableOption=
+Page=空調システム
+Left=500
+Top=500
+Field="SetName","熱源群名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="UnitID","機器ID","integer","NOT NULL",1,"","",$FFFFFFFF
+Field="Type","熱源機種","varchar(100)",,,"","約50種類の熱源機種",$FFFFFFFF
+Field="CoolingOrder","冷熱運転順位","integer",,,"","",$FFFFFFFF
+Field="CoolingCount","冷熱台数","integer",,,"","",$FFFFFFFF
+Field="CoolingSupplyWaterTemp","冷水送水温度","numeric(5,2)",,,"","℃",$FFFFFFFF
+Field="CoolingCapacity","定格冷却能力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="CoolingMainPower","冷熱主機消費エネルギー","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="CoolingSubPower","冷熱補機消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="CoolingPrimaryPumpPower","冷熱一次ポンプ消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="CoolingCTCapacity","冷却塔定格冷却能力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="CoolingCTFanPower","冷却塔ファン消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="CoolingCTPumpPower","冷却水ポンプ消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="HeatingOrder","温熱運転順位","integer",,,"","",$FFFFFFFF
+Field="HeatingCount","温熱台数","integer",,,"","",$FFFFFFFF
+Field="HeatingSupplyWaterTemp","温水送水温度","numeric(5,2)",,,"","℃",$FFFFFFFF
+Field="HeatingCapacity","定格加熱能力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="HeatingMainPower","温熱主機消費エネルギー","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="HeatingSubPower","温熱補機消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="HeatingPrimaryPumpPower","温熱一次ポンプ消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=HeatSource_PK=1,SetName,UnitID
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="空調システム",500,500
+
+[Entity]
+PName=SecondaryPumpSet
+LName=二次ポンプ群
+Comment=様式2-6. 二次ポンプ入力シート（ポンプ群）
+TableOption=
+Page=空調システム
+Left=100
+Top=1100
+Field="Name","二次ポンプ群名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="QuantityControl","台数制御の有無","boolean",,,"false","",$FFFFFFFF
+Field="CoolingTempDiff","冷房時温度差","numeric(5,2)",,,"","℃",$FFFFFFFF
+Field="HeatingTempDiff","暖房時温度差","numeric(5,2)",,,"","℃",$FFFFFFFF
+Index=SecondaryPumpSet_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="空調システム",100,1100
+
+[Entity]
+PName=SecondaryPump
+LName=二次ポンプ
+Comment=様式2-6. 二次ポンプ入力シート（ポンプ）
+TableOption=
+Page=空調システム
+Left=500
+Top=1100
+Field="SetName","二次ポンプ群名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="Order","運転順位","integer","NOT NULL",1,"","",$FFFFFFFF
+Field="Count","台数","integer",,,"","",$FFFFFFFF
+Field="RatedFlow","定格流量","numeric(10,2)",,,"","m³/h",$FFFFFFFF
+Field="RatedPower","定格消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="FlowControl","流量制御方式","varchar(50)",,,"","enum: CWV(定流量), VWVInverter(回転数制御)",$FFFFFFFF
+Field="MinValveOpening","変流量時最小流量比","numeric(5,2)",,,"","%",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=SecondaryPump_PK=1,SetName,Order
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="空調システム",500,1100
+
+[Entity]
+PName=AirHandlingUnitSet
+LName=空調機群
+Comment=様式2-7. 空調機入力シート（空調機群）
+TableOption=
+Page=空調システム
+Left=100
+Top=1700
+Field="Name","空調機群名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="CoolingHeatSourceSet","冷熱源群名称","varchar(100)",,,"","FK: HeatSourceSet.Name",$FFFFFFFF
+Field="HeatingHeatSourceSet","温熱源群名称","varchar(100)",,,"","FK: HeatSourceSet.Name",$FFFFFFFF
+Field="CoolingSecondaryPump","冷熱二次ポンプ群名称","varchar(100)",,,"","FK: SecondaryPumpSet.Name",$FFFFFFFF
+Field="HeatingSecondaryPump","温熱二次ポンプ群名称","varchar(100)",,,"","FK: SecondaryPumpSet.Name",$FFFFFFFF
+Index=AirHandlingUnitSet_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="空調システム",100,1700
+
+[Entity]
+PName=AirHandlingUnit
+LName=空調機
+Comment=様式2-7. 空調機入力シート（空調機）
+TableOption=
+Page=空調システム
+Left=500
+Top=1700
+Field="SetName","空調機群名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="UnitID","機器ID","integer","NOT NULL",1,"","",$FFFFFFFF
+Field="Count","台数","integer",,,"","",$FFFFFFFF
+Field="Type","空調機タイプ","varchar(50)",,,"","enum: AirHandlingUnit, FanCoilUnit, IndoorUnit, AirHeatExchanger, Fan, Radiator 等",$FFFFFFFF
+Field="CoolingCapacity","定格冷却能力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="HeatingCapacity","定格加熱能力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="SupplyAirVolume","設計最大外気風量","numeric(10,2)",,,"","m³/h",$FFFFFFFF
+Field="SupplyFanPower","給気送風機定格消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="ReturnFanPower","還気送風機定格消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="OutsideAirFanPower","外気送風機定格消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="ExhaustFanPower","排気送風機定格消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="FlowControl","風量制御方式","varchar(50)",,,"","enum: CAV(定風量), VAVInverter(回転数制御)",$FFFFFFFF
+Field="MinDamperOpening","変風量時最小風量比","numeric(5,2)",,,"","%",$FFFFFFFF
+Field="OutsideAirCutControl","予熱時外気取り入れ停止","boolean",,,"false","",$FFFFFFFF
+Field="FreeCoolingControl","外気冷房制御","boolean",,,"false","",$FFFFFFFF
+Field="HeatExchanger","全熱交換器の有無","boolean",,,"false","",$FFFFFFFF
+Field="HeatExchangerVolume","全熱交換器設計風量","numeric(10,2)",,,"","m³/h",$FFFFFFFF
+Field="HeatExchangerEfficiency","全熱交換効率","numeric(5,2)",,,"","%",$FFFFFFFF
+Field="HeatExchangerBypass","自動換気切替機能","boolean",,,"false","",$FFFFFFFF
+Field="HeatExchangerPower","ローター消費電力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=AirHandlingUnit_PK=1,SetName,UnitID
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="空調システム",500,1700
+
+[Entity]
+PName=AirHandlingUnitSetRef
+LName=空調機群参照
+Comment=空調ゾーンと空調機群の関連
+TableOption=
+Page=空調システム
+Left=900
+Top=100
+Field="ACZoneFloor","空調ゾーン階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="ACZoneName","空調ゾーン名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="Type","負荷種別","varchar(20)","NOT NULL",2,"","室負荷処理/外気負荷処理",$FFFFFFFF
+Field="AHUSetName","空調機群名称","varchar(100)",,,"","FK: AirHandlingUnitSet.Name",$FFFFFFFF
+Index=AirHandlingUnitSetRef_PK=1,ACZoneFloor,ACZoneName,Type
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="空調システム",900,100
+
+[Entity]
+PName=VentilationRoom
+LName=換気対象室
+Comment=様式3-1. 換気対象室入力シート
+TableOption=
+Page=換気システム
+Left=100
+Top=100
+Field="Floor","階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="Name","室名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="BuildingType","建物用途","varchar(50)",,,"","",$FFFFFFFF
+Field="RoomType","室用途","varchar(50)",,,"","",$FFFFFFFF
+Field="Area","室面積","numeric(10,2)",,,"","m²",$FFFFFFFF
+Index=VentilationRoom_PK=1,Floor,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="換気システム",100,100
+
+[Entity]
+PName=VentilationUnitRef
+LName=換気機器参照
+Comment=換気対象室と換気機器の関連
+TableOption=
+Page=換気システム
+Left=500
+Top=100
+Field="RoomFloor","室階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="RoomName","室名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="UnitType","換気種類","varchar(20)","NOT NULL",2,"","enum: SupplyFan, ExhaustFan, CirculationFan, AC",$FFFFFFFF
+Field="Name","換気機器名称","varchar(100)",,,"","",$FFFFFFFF
+Index=VentilationUnitRef_PK=1,RoomFloor,RoomName,UnitType
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="換気システム",500,100
+
+[Entity]
+PName=VentilationFanUnit
+LName=給排気送風機
+Comment=様式3-2. 給排気送風機入力シート
+TableOption=
+Page=換気システム
+Left=100
+Top=500
+Field="Name","換気機器名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="FanVolume","設計風量","numeric(10,2)",,,"","m³/h",$FFFFFFFF
+Field="FanPower","電動機定格出力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="Motor","高効率電動機の有無","varchar(20)",,,"","enum: Standard(無), HighEfficiency(有)",$FFFFFFFF
+Field="Inverter","インバータの有無","boolean",,,"false","",$FFFFFFFF
+Field="VolumeControl","送風量制御","varchar(50)",,,"","enum: None, Temperature, COconcentration",$FFFFFFFF
+Index=VentilationFanUnit_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="換気システム",100,500
+
+[Entity]
+PName=VentilationACUnit
+LName=換気代替空調機
+Comment=様式3-3. 換気代替空調機入力シート
+TableOption=
+Page=換気システム
+Left=100
+Top=900
+Field="Name","換気機器名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="RoomType","換気対象室の用途","varchar(50)",,,"","enum: ElevatorMechanicalRoom, ElectricalRoom, MechanicalRoom, Other",$FFFFFFFF
+Field="CoolingCapacity","必要冷却能力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="COP","熱源効率(一次換算値)","numeric(5,2)",,,"","",$FFFFFFFF
+Field="PumpPower","ポンプ定格出力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Index=VentilationACUnit_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="換気システム",100,900
+
+[Entity]
+PName=VentilationACFan
+LName=換気代替空調機送風機
+Comment=様式3-3. 換気代替空調機の送風機
+TableOption=
+Page=換気システム
+Left=500
+Top=900
+Field="UnitName","換気機器名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="FanID","送風機ID","integer","NOT NULL",1,"","",$FFFFFFFF
+Field="Type","送風機の種類","varchar(20)",,,"","enum: SupplyFan, ExhaustFan, CirculationFan, AC",$FFFFFFFF
+Field="Volume","設計風量","numeric(10,2)",,,"","m³/h",$FFFFFFFF
+Field="MotorPower","電動機定格出力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="HighEfficiencyMotor","高効率電動機の有無","varchar(20)",,,"","enum: Standard, HighEfficiency",$FFFFFFFF
+Field="Inverter","インバータの有無","boolean",,,"false","",$FFFFFFFF
+Field="VolumeControl","送風量制御","varchar(50)",,,"","enum: None, Temperature, COconcentration",$FFFFFFFF
+Index=VentilationACFan_PK=1,UnitName,FanID
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="換気システム",500,900
+
+[Entity]
+PName=LightingRoom
+LName=照明対象室
+Comment=様式4. 照明入力シート（対象室）
+TableOption=
+Page=照明・給湯
+Left=100
+Top=100
+Field="Floor","階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="Name","室名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="BuildingType","建物用途","varchar(50)",,,"","",$FFFFFFFF
+Field="RoomType","室用途","varchar(50)",,,"","",$FFFFFFFF
+Field="Area","室面積","numeric(10,2)",,,"","m²",$FFFFFFFF
+Field="FloorHeight","階高","numeric(5,2)",,,"","m",$FFFFFFFF
+Field="RoomHeight","天井高","numeric(5,2)",,,"","m",$FFFFFFFF
+Field="Width","室の間口","numeric(10,2)",,,"","m",$FFFFFFFF
+Field="Depth","室の奥行","numeric(10,2)",,,"","m",$FFFFFFFF
+Field="RoomIndex","室指数","numeric(5,2)",,,"","",$FFFFFFFF
+Index=LightingRoom_PK=1,Floor,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="照明・給湯",100,100
+
+[Entity]
+PName=LightingUnit
+LName=照明機器
+Comment=様式4. 照明入力シート（照明機器）
+TableOption=
+Page=照明・給湯
+Left=500
+Top=100
+Field="RoomFloor","室階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="RoomName","室名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="UnitName","機器名称","varchar(100)","NOT NULL",2,"","",$FFFFFFFF
+Field="Power","定格消費電力","numeric(10,2)",,,"","W",$FFFFFFFF
+Field="Count","台数","integer",,,"","",$FFFFFFFF
+Field="OccupantSensing","在室検知制御","varchar(50)",,,"","enum: None, ContinuousDimmer, OnOff, Dimmer",$FFFFFFFF
+Field="IlluminanceSensing","明るさ検知制御","varchar(50)",,,"","enum: None, Dimmer, DimmerBL, DimmerW15, DimmerW15BL, DimmerW20, DimmerW20BL, DimmerW25, DimmerW25BL, OnOff",$FFFFFFFF
+Field="TimeSchedule","タイムスケジュール制御","varchar(50)",,,"","enum: None, Dimmer, OnOff",$FFFFFFFF
+Field="InitialIlluminationCorrection","初期照度補正制御","varchar(50)",,,"","enum: None, TimerLED, TimerFluorescentLamp, SensorLED, SensorFluorescentLamp",$FFFFFFFF
+Index=LightingUnit_PK=1,RoomFloor,RoomName,UnitName
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="照明・給湯",500,100
+
+[Entity]
+PName=HotwaterRoom
+LName=給湯対象室
+Comment=様式5-1. 給湯対象室入力シート
+TableOption=
+Page=照明・給湯
+Left=100
+Top=700
+Field="Floor","階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="Name","室名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="BuildingType","建物用途","varchar(50)",,,"","",$FFFFFFFF
+Field="RoomType","室用途","varchar(50)",,,"","",$FFFFFFFF
+Field="Area","室面積","numeric(10,2)",,,"","m²",$FFFFFFFF
+Index=HotwaterRoom_PK=1,Floor,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="照明・給湯",100,700
+
+[Entity]
+PName=BoilerRef
+LName=給湯機器参照
+Comment=給湯対象室と給湯機器の関連
+TableOption=
+Page=照明・給湯
+Left=500
+Top=700
+Field="RoomFloor","室階","integer","NOT NULL",0,"","",$FFFFFFFF
+Field="RoomName","室名","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="Location","給湯箇所","varchar(100)","NOT NULL",2,"","",$FFFFFFFF
+Field="WaterSaving","節湯器具","varchar(50)",,,"","enum: None, MixingTap, WaterSavingB1",$FFFFFFFF
+Field="Name","給湯機器名称","varchar(100)",,,"","FK: HotwaterBoiler.Name",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=BoilerRef_PK=1,RoomFloor,RoomName,Location
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="照明・給湯",500,700
+
+[Entity]
+PName=HotwaterBoiler
+LName=給湯機器
+Comment=様式5-2. 給湯機器入力シート
+TableOption=
+Page=照明・給湯
+Left=100
+Top=1100
+Field="Name","給湯機器名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="FuelType","燃料種類","varchar(50)",,,"","enum: Electricity, CityGas, LPG, Oil, Kerosene, HotWater, Steam",$FFFFFFFF
+Field="Capacity","定格加熱能力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="Efficiency","熱源効率(一次エネルギー換算)","numeric(5,2)",,,"","",$FFFFFFFF
+Field="Insulation","配管保温仕様","varchar(50)",,,"","enum: Level0(裸管), Level1, Level2, Level3",$FFFFFFFF
+Field="PipeSize","接続口径","numeric(6,2)",,,"","mm",$FFFFFFFF
+Field="SolarSystem","太陽熱利用有無","boolean",,,"false","",$FFFFFFFF
+Field="SolarSystemArea","有効集熱面積","numeric(10,2)",,,"","m²",$FFFFFFFF
+Field="SolarSystemDirection","集熱面の方位角","numeric(5,2)",,,"","°",$FFFFFFFF
+Field="SolarSystemAngle","集熱面の傾斜角","numeric(5,2)",,,"","°",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=HotwaterBoiler_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="照明・給湯",100,1100
+
+[Entity]
+PName=Elevator
+LName=昇降機
+Comment=様式6. 昇降機入力シート
+TableOption=
+Page=昇降機・発電
+Left=100
+Top=100
+Field="Name","機器名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="RoomFloor","主要な対象室 階","integer",,,"","",$FFFFFFFF
+Field="RoomName","主要な対象室 室名","varchar(100)",,,"","",$FFFFFFFF
+Field="BuildingType","主要な対象室 建物用途","varchar(50)",,,"","",$FFFFFFFF
+Field="RoomType","主要な対象室 室用途","varchar(50)",,,"","",$FFFFFFFF
+Field="Count","台数","integer",,,"","",$FFFFFFFF
+Field="LoadLimit","積載量","numeric(10,2)",,,"","kg",$FFFFFFFF
+Field="Velocity","速度","numeric(5,2)",,,"","m/s",$FFFFFFFF
+Field="TransportCapacityFactor","輸送能力係数","numeric(5,2)",,,"","",$FFFFFFFF
+Field="ControlType","速度制御方式","varchar(50)",,,"","enum: VVVF, ACFeedback",$FFFFFFFF
+Field="Regeneration","電力回生","boolean",,,"false","",$FFFFFFFF
+Field="GearLess","ギアレス","boolean",,,"false","",$FFFFFFFF
+Index=Elevator_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="昇降機・発電",100,100
+
+[Entity]
+PName=PhotovoltaicGeneration
+LName=太陽光発電システム
+Comment=様式7-1. 太陽光発電システム入力シート
+TableOption=
+Page=昇降機・発電
+Left=100
+Top=600
+Field="Name","太陽光発電システム名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="PowerConditionerEfficiency","パワーコンディショナの効率","numeric(4,3)",,,"","0-1",$FFFFFFFF
+Field="Cell","太陽電池の種類","varchar(50)",,,"","enum: Crystal(結晶系), Other(結晶系以外)",$FFFFFFFF
+Field="Setup","アレイ設置方式","varchar(50)",,,"","enum: Frame(架台設置), RoofMount(屋根置き), Other",$FFFFFFFF
+Field="Capacity","アレイのシステム容量","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="Direction","パネルの方位角","numeric(5,2)",,,"","°",$FFFFFFFF
+Field="Angle","パネルの傾斜角","numeric(5,2)",,,"","°",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=PhotovoltaicGeneration_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="昇降機・発電",100,600
+
+[Entity]
+PName=CogenerationUnitSet
+LName=コージェネシステム(CASCADE用)
+Comment=様式7-2. コージェネレーション設備入力シート(CASCADE用)
+TableOption=
+Page=コージェネ
+Left=100
+Top=100
+Field="Name","コージェネレーションシステム名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="ACElectricDemand","年間電力需要 空調","numeric(12,2)",,,"","kWh",$FFFFFFFF
+Field="VentilationElectricDemand","年間電力需要 換気","numeric(12,2)",,,"","kWh",$FFFFFFFF
+Field="LightingElectricDemand","年間電力需要 照明","numeric(12,2)",,,"","kWh",$FFFFFFFF
+Field="HotwaterElectricDemand","年間電力需要 給湯","numeric(12,2)",,,"","kWh",$FFFFFFFF
+Field="ElevatorElectricDemand","年間電力需要 昇降機","numeric(12,2)",,,"","kWh",$FFFFFFFF
+Field="OtherElectricDemand","年間電力需要 その他","numeric(12,2)",,,"","kWh",$FFFFFFFF
+Index=CogenerationUnitSet_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="コージェネ",100,100
+
+[Entity]
+PName=CogenerationUnit
+LName=コージェネ機器(CASCADE用)
+Comment=様式7-2. コージェネレーション機器
+TableOption=
+Page=コージェネ
+Left=500
+Top=100
+Field="SetName","コージェネレーションシステム名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="Name","機器名称","varchar(100)","NOT NULL",1,"","",$FFFFFFFF
+Field="GeneratingEfficiency","発電効率","numeric(5,2)",,,"","",$FFFFFFFF
+Field="ExhaustHeatRecoveryRatio","排熱回収率","numeric(5,2)",,,"","",$FFFFFFFF
+Field="ElectricalDependencyRatio","発電依存率","numeric(5,2)",,,"","",$FFFFFFFF
+Field="HeatUtilizationRatio","有効熱利用率","numeric(5,2)",,,"","",$FFFFFFFF
+Field="CoolingRatio","有効排熱量の冷熱利用比","numeric(5,2)",,,"","",$FFFFFFFF
+Field="RefrigeratorCOP","温水吸収冷凍機または排熱投入型冷温水機の成績係数","numeric(5,2)",,,"","",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=CogenerationUnit_PK=1,SetName,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="コージェネ",500,100
+
+[Entity]
+PName=CogenerationDetails
+LName=コージェネ設備詳細
+Comment=様式7-3. コージェネレーション設備詳細入力シート
+TableOption=
+Page=コージェネ
+Left=100
+Top=700
+Field="Name","コージェネレーション設備名称","varchar(100)","NOT NULL",0,"","",$FFFFFFFF
+Field="RatedCapacity","定格発電出力","numeric(10,2)",,,"","kW",$FFFFFFFF
+Field="Number","設置台数","integer",,,"","",$FFFFFFFF
+Field="RatedGenerationEfficiency","発電効率 負荷率1.00","numeric(5,2)",,,"","",$FFFFFFFF
+Field="GenerationEfficiency75","発電効率 負荷率0.75","numeric(5,2)",,,"","",$FFFFFFFF
+Field="GenerationEfficiency50","発電効率 負荷率0.50","numeric(5,2)",,,"","",$FFFFFFFF
+Field="RatedHeatRecoveryEfficiency","排熱効率 負荷率1.00","numeric(5,2)",,,"","",$FFFFFFFF
+Field="HeatRecoveryEfficiency75","排熱効率 負荷率0.75","numeric(5,2)",,,"","",$FFFFFFFF
+Field="HeatRecoveryEfficiency50","排熱効率 負荷率0.50","numeric(5,2)",,,"","",$FFFFFFFF
+Field="HeatRecoveryPriorityCooling","排熱利用優先順位 空調冷熱源","integer",,,"","",$FFFFFFFF
+Field="HeatRecoveryPriorityHeating","排熱利用優先順位 空調温熱源","integer",,,"","",$FFFFFFFF
+Field="HeatRecoveryPriorityHotWater","排熱利用優先順位 給湯","integer",,,"","",$FFFFFFFF
+Field="Work24Hour","24時間運転の有無","boolean",,,"false","",$FFFFFFFF
+Field="CoolingHeatSourceSet","冷熱源","varchar(100)",,,"","FK: HeatSourceSet.Name",$FFFFFFFF
+Field="HeatingHeatSourceSet","温熱源","varchar(100)",,,"","FK: HeatSourceSet.Name",$FFFFFFFF
+Field="HotWaterBoiler","給湯機器","varchar(100)",,,"","FK: HotwaterBoiler.Name",$FFFFFFFF
+Field="Info","備考","text",,,"","",$FFFFFFFF
+Index=CogenerationDetails_PK=1,Name
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="コージェネ",100,700
+
+[Relation]
+Entity1=Model
+Entity2=Room
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=Room
+Entity2=RoomRef
+RelationType1=1
+RelationType2=3
+Fields1=Floor,Name
+Fields2=RoomFloor,RoomName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=AirConditioningZone
+Entity2=RoomRef
+RelationType1=1
+RelationType2=3
+Fields1=Floor,Name
+Fields2=ACZoneFloor,ACZoneName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=WallConfigure
+Entity2=Material
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=WallName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=AirConditioningZone
+Entity2=EnvelopeSet
+RelationType1=1
+RelationType2=3
+Fields1=Floor,Name
+Fields2=ACZoneFloor,ACZoneName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=EnvelopeSet
+Entity2=Envelope
+RelationType1=1
+RelationType2=3
+Fields1=ACZoneFloor,ACZoneName
+Fields2=ACZoneFloor,ACZoneName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=Envelope
+Entity2=Window
+RelationType1=1
+RelationType2=3
+Fields1=ACZoneFloor,ACZoneName,Direction
+Fields2=ACZoneFloor,ACZoneName,Direction
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=WallConfigure
+Entity2=Envelope
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=WallConfiguration
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=WindowConfigure
+Entity2=Window
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=WindowSpecification
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=HeatSourceSet
+Entity2=HeatSource
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=SetName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=SecondaryPumpSet
+Entity2=SecondaryPump
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=SetName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=AirHandlingUnitSet
+Entity2=AirHandlingUnit
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=SetName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=HeatSourceSet
+Entity2=AirHandlingUnitSet
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=CoolingHeatSourceSet
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=冷熱源
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=SecondaryPumpSet
+Entity2=AirHandlingUnitSet
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=CoolingSecondaryPump
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=冷熱二次ポンプ
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=AirConditioningZone
+Entity2=AirHandlingUnitSetRef
+RelationType1=1
+RelationType2=3
+Fields1=Floor,Name
+Fields2=ACZoneFloor,ACZoneName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=AirHandlingUnitSet
+Entity2=AirHandlingUnitSetRef
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=AHUSetName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=VentilationRoom
+Entity2=VentilationUnitRef
+RelationType1=1
+RelationType2=3
+Fields1=Floor,Name
+Fields2=RoomFloor,RoomName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=VentilationACUnit
+Entity2=VentilationACFan
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=UnitName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=LightingRoom
+Entity2=LightingUnit
+RelationType1=1
+RelationType2=3
+Fields1=Floor,Name
+Fields2=RoomFloor,RoomName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=HotwaterRoom
+Entity2=BoilerRef
+RelationType1=1
+RelationType2=3
+Fields1=Floor,Name
+Fields2=RoomFloor,RoomName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=HotwaterBoiler
+Entity2=BoilerRef
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=Name
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=CogenerationUnitSet
+Entity2=CogenerationUnit
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=SetName
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=HeatSourceSet
+Entity2=CogenerationDetails
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=CoolingHeatSourceSet
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=冷熱源
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+
+[Relation]
+Entity1=HotwaterBoiler
+Entity2=CogenerationDetails
+RelationType1=1
+RelationType2=3
+Fields1=Name
+Fields2=HotWaterBoiler
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R
+Dependence=0
+Caption=給湯機器
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
