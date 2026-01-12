@@ -58,10 +58,10 @@ erDiagram
     }
 
     RoomRef {
-        int ACZoneFloor PK FK
-        string ACZoneName PK FK
-        int RoomFloor PK FK
-        string RoomName PK FK
+        int ACZoneFloor PK "FK"
+        string ACZoneName PK "FK"
+        int RoomFloor PK "FK"
+        string RoomName PK "FK"
     }
 
     WallConfigure {
@@ -70,7 +70,7 @@ erDiagram
     }
 
     Material {
-        string WallName PK FK
+        string WallName PK "FK"
         int Layer PK
     }
 
@@ -81,21 +81,21 @@ erDiagram
     }
 
     EnvelopeSet {
-        int ACZoneFloor PK FK
-        string ACZoneName PK FK
+        int ACZoneFloor PK "FK"
+        string ACZoneName PK "FK"
     }
 
     Envelope {
-        int ACZoneFloor PK FK
-        string ACZoneName PK FK
+        int ACZoneFloor PK "FK"
+        string ACZoneName PK "FK"
         string Direction PK
         string WallConfiguration FK
     }
 
     Window {
-        int ACZoneFloor PK FK
-        string ACZoneName PK FK
-        string Direction PK FK
+        int ACZoneFloor PK "FK"
+        string ACZoneName PK "FK"
+        string Direction PK "FK"
         int WindowID PK
         string WindowSpecification FK
     }
@@ -105,7 +105,7 @@ erDiagram
     }
 
     HeatSource {
-        string SetName PK FK
+        string SetName PK "FK"
         int UnitID PK
         string Type
     }
@@ -115,7 +115,7 @@ erDiagram
     }
 
     SecondaryPump {
-        string SetName PK FK
+        string SetName PK "FK"
         int Order PK
     }
 
@@ -126,14 +126,14 @@ erDiagram
     }
 
     AirHandlingUnit {
-        string SetName PK FK
+        string SetName PK "FK"
         int UnitID PK
         string Type
     }
 
     AirHandlingUnitSetRef {
-        int ACZoneFloor PK FK
-        string ACZoneName PK FK
+        int ACZoneFloor PK "FK"
+        string ACZoneName PK "FK"
         string Type PK
         string AHUSetName FK
     }
@@ -165,8 +165,8 @@ erDiagram
     }
 
     VentilationUnitRef {
-        int RoomFloor PK FK
-        string RoomName PK FK
+        int RoomFloor PK "FK"
+        string RoomName PK "FK"
         string UnitType PK
         string Name FK
     }
@@ -183,7 +183,7 @@ erDiagram
     }
 
     VentilationACFan {
-        string UnitName PK FK
+        string UnitName PK "FK"
         int FanID PK
         string Type
     }
@@ -196,8 +196,8 @@ erDiagram
     }
 
     LightingUnit {
-        int RoomFloor PK FK
-        string RoomName PK FK
+        int RoomFloor PK "FK"
+        string RoomName PK "FK"
         string UnitName PK
         decimal Power
         int Count
@@ -211,8 +211,8 @@ erDiagram
     }
 
     BoilerRef {
-        int RoomFloor PK FK
-        string RoomName PK FK
+        int RoomFloor PK "FK"
+        string RoomName PK "FK"
         string Location PK
         string Name FK
     }
@@ -262,7 +262,7 @@ erDiagram
     }
 
     CogenerationUnit {
-        string SetName PK FK
+        string SetName PK "FK"
         string Name PK
         decimal GeneratingEfficiency
     }
@@ -326,29 +326,29 @@ erDiagram
     }
 
     RoomRef {
-        int ACZoneFloor PK FK
-        string ACZoneName PK FK
-        int RoomFloor PK FK
-        string RoomName PK FK
+        int ACZoneFloor PK "FK"
+        string ACZoneName PK "FK"
+        int RoomFloor PK "FK"
+        string RoomName PK "FK"
     }
 
     EnvelopeSet {
-        int ACZoneFloor PK FK
-        string ACZoneName PK FK
+        int ACZoneFloor PK "FK"
+        string ACZoneName PK "FK"
     }
 
     Envelope {
-        int ACZoneFloor PK FK
-        string ACZoneName PK FK
+        int ACZoneFloor PK "FK: 方位"
+        string ACZoneName PK "FK"
         string Direction PK "方位"
         string WallConfiguration FK "外壁名称"
         decimal Area "外皮面積m2"
     }
 
     Window {
-        int ACZoneFloor PK FK
-        string ACZoneName PK FK
-        string Direction PK FK
+        int ACZoneFloor PK "FK"
+        string ACZoneName PK "FK"
+        string Direction PK "FK"
         int WindowID PK
         string WindowSpecification FK "開口部名称"
         decimal Area "窓面積m2"
@@ -364,7 +364,7 @@ erDiagram
     }
 
     Material {
-        string WallName PK FK "外壁名称"
+        string WallName PK "FK: 外壁名称"
         int Layer PK "層序番"
         string Number "建材番号"
         string Name "建材名称"
@@ -408,8 +408,8 @@ erDiagram
     }
 
     AirHandlingUnitSetRef {
-        int ACZoneFloor PK FK
-        string ACZoneName PK FK
+        int ACZoneFloor PK "FK"
+        string ACZoneName PK "FK"
         string Type PK "室負荷-外気負荷"
         string AHUSetName FK "空調機群名称"
     }
@@ -423,7 +423,7 @@ erDiagram
     }
 
     HeatSource {
-        string SetName PK FK
+        string SetName PK "FK"
         int UnitID PK
         string Type "熱源機種"
         int CoolingOrder "冷熱運転順位"
@@ -444,7 +444,7 @@ erDiagram
     }
 
     SecondaryPump {
-        string SetName PK FK
+        string SetName PK "FK"
         int Order PK "運転順位"
         int Count "台数"
         decimal RatedFlow "定格流量m3-h"
@@ -462,7 +462,7 @@ erDiagram
     }
 
     AirHandlingUnit {
-        string SetName PK FK
+        string SetName PK "FK"
         int UnitID PK
         int Count "台数"
         string Type "空調機タイプ"
@@ -669,10 +669,10 @@ erDiagram
     }
 
     RoomRef {
-        int ACZoneFloor PK FK "空調ゾーン階"
-        string ACZoneName PK FK "空調ゾーン名"
-        int RoomFloor PK FK "室階"
-        string RoomName PK FK "室名"
+        int ACZoneFloor PK "FK: 空調ゾーン階"
+        string ACZoneName PK "FK: 空調ゾーン名"
+        int RoomFloor PK "FK: 室階"
+        string RoomName PK "FK: 室名"
     }
 ```
 
@@ -706,8 +706,8 @@ erDiagram
     }
 
     AirHandlingUnitSetRef {
-        int ACZoneFloor PK FK "空調ゾーン階"
-        string ACZoneName PK FK "空調ゾーン名"
+        int ACZoneFloor PK "FK: 空調ゾーン階"
+        string ACZoneName PK "FK: 空調ゾーン名"
         string Type PK "負荷種別"
         string AHUSetName FK "空調機群名称"
     }
@@ -784,7 +784,7 @@ erDiagram
     }
 
     Material {
-        string WallName PK FK "外壁名称"
+        string WallName PK "FK: 外壁名称"
         int Layer PK "層序番1-9"
         string Number "建材番号"
         string Name "建材名称"
@@ -938,7 +938,7 @@ AirConditioningZone ||--|| EnvelopeSet : "has"
 
 - `PK` : 主キー(Primary Key)
 - `FK` : 外部キー(Foreign Key)
-- `PK FK` : 主キーかつ外部キー(複合主キーの一部)
+- `PK "FK"` : 主キーかつ外部キー(コメント内にFKと記載)
 
 **例:**
 
@@ -949,6 +949,12 @@ Room {
     string RoomType "室用途"
 }
 → Floor と Name の複合主キー
+
+RoomRef {
+    int ACZoneFloor PK "FK"
+    string ACZoneName PK "FK"
+}
+→ 主キーかつ外部キー(複合主キーの一部)
 ```
 
 ## 11. 全エンティティ一覧表
